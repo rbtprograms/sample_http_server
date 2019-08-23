@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	handler := http.HandlerFunc(PlayerServer)
-	if err := http.ListenAndServe(":5000", handler); err != nil {
+	server := &PlayerServer{}
+	if err := http.ListenAndServe(":5000", server); err != nil {
 		log.Fatalf("could not start server on port 5000: %v", err)
 	}
 }
