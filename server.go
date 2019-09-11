@@ -5,10 +5,12 @@ import (
 	"net/http"
 )
 
+//PlayerStore stores score infor about players
 type PlayerStore interface {
-	getPlayerScore(name string) int
+	GetPlayerScore(name string) int
 }
 
+//PlayerServer is an HTTP interface for player information
 type PlayerServer struct {
 	store PlayerStore
 }
@@ -16,11 +18,16 @@ type PlayerServer struct {
 //Server currently only returns 10 or 20
 func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	player := r.URL.Path[len("/players/"):]
-	score := p.store.getPlayerScore(player)
+	score := p.store.GetPlayerScore(player)
+
+	if score == 0 {
+		w.WriteHeader(http.StatusNotFound)
+	}
+
 	fmt.Fprint(w, score)
 }
 
-// func getPlayerScore(name string) int {
+// func GetPlayerScore(name string) int {
 // 	var value int
 // 	if name == "Pepper" {
 // 		value = 20
