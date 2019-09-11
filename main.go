@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"net/http"g
+	"net/http"
 )
 
 //InMemoryPlayerStore stores player scores in memory
