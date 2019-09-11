@@ -2,11 +2,13 @@ package main
 
 import (
 	"log"
-	"net/http"
+	"net/http"g
 )
 
+//InMemoryPlayerStore stores player scores in memory
 type InMemoryPlayerStore struct{}
 
+//GetPlayerStore gets player store information
 func (i *InMemoryPlayerStore) GetPlayerStore(name string) int {
 	return 123
 }
