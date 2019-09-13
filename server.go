@@ -3,12 +3,19 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"encoding/json"
 )
+
+type Player struct {
+	Name string
+	Wins int
+}
 
 //PlayerStore stores score infor about players
 type PlayerStore interface {
 	GetPlayerScore(name string) int
 	RecordWin(name string)
+	GetLeague() []Player
 }
 
 //PlayerServer is an HTTP interface for player information
@@ -32,6 +39,7 @@ func NewPlayerServer(store PlayerStore) *PlayerServer {
 }
 
 func (p *PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
+	json.NewEncoder(w).Encode(p.GetLeague())
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -58,4 +66,10 @@ func (p *PlayerServer) showScore(w http.ResponseWriter, player string) {
 func (p *PlayerServer) processWin(w http.ResponseWriter, player string) {
 	p.store.RecordWin(player)
 	w.WriteHeader(http.StatusAccepted)
+}
+
+func (p *PlayerServer) GetLeague() []Player {
+	return []Player{
+		{"Chris", 20},
+	}
 }
