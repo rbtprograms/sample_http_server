@@ -6,7 +6,7 @@ func NewInMemoryPlayerStore() *InMemoryPlayerStore {
 }
 
 //InMemoryPlayerStore stores player scores in memory
-type InMemoryPlayerStore struct{
+type InMemoryPlayerStore struct {
 	store map[string]int
 }
 
